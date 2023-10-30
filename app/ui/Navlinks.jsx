@@ -24,7 +24,7 @@ const links = [
 export default function NavLinks() {
   const pathname = usePathname();
   return (
-    <ul className="flex items-center absolute top-0 -z-50 justify-around py-8">
+    <ul className="flex items-center  justify-around py-8">
       {links.map((link) => {
         return (
           <Link
