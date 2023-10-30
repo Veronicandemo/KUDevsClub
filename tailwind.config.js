@@ -5,14 +5,24 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      width: {
+        '40-r': '40rem',
+        '35-r': '35rem',
+        '30-r': '30rem',
+      },
+      height: {
+        '40-r': '40rem',
+        '35-r': '35rem',
+        '30-r': '30rem',
+      },
+      boxShadow: {
+        '5xl': '20px 20px 50px rgba(0, 0, 0, 0.5)',
       },
     },
   },
+
   plugins: [],
 }
