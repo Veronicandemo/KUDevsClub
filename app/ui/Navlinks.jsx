@@ -24,7 +24,7 @@ const links = [
 export default function NavLinks() {
   const pathname = usePathname();
   return (
-    <ul className="flex items-center  justify-around py-8">
+    <ul className="flex items-center md:py-6  justify-around">
       {links.map((link) => {
         return (
           <Link
@@ -35,7 +35,7 @@ export default function NavLinks() {
                 pathname === link.href,
             })}
           >
-            <p className="hidden md:block">{link.name}</p>
+            <p className="md:block">{link.name}</p>
           </Link>
         );
       })}

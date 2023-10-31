@@ -3,10 +3,10 @@ import Image from "next/image";
 export default function Footer() {
   return (
     <>
-      <div className="w-full min-h-min pt-20  flex items-center justify-center bg-black">
+      <div className="w-full min-h-min pt-20 flex items-center justify-center bg-black">
         <div className="md:w-2/3 w-full px-4 text-white flex flex-col">
           <div className="w-full text-7xl font-bold">
-            <h1 className="w-full md:w-2/3">
+            <h1 className="w-full text-xl md:text-7xl md:w-2/3">
               How can we help you. get in touch
             </h1>
           </div>

@@ -6,7 +6,7 @@ body {
   color: #fff;
 }
 .input-text {
-  @apply bg-transparent border border-t-0 border-l-0 border-r-0 border-b-2  w-96 focus:outline-none text-white tracking-wide;
+  @apply bg-transparent border border-t-0 border-l-0 border-r-0 border-b-2 sm:w-1/2  md:w-96 focus:outline-none text-white tracking-wide;
 }
 .footer-heading {
   @apply uppercase font-bold text-xl tracking-wide;
