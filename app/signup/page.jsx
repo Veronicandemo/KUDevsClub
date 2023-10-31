@@ -53,8 +53,8 @@ export default function SignUp() {
     setTimeout(() => {
       setName("");
       setEmail("");
-      setTrack("");
       setyearOfStudy("");
+      setTrack("");
     }, 3000);
   };
 
