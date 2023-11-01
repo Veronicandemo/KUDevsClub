@@ -4,7 +4,9 @@ import { poppins } from "../ui/fonts";
 import NavLinks from "../ui/Navlinks";
 import emailjs from "@emailjs/browser";
 import { ToastContainer, toast } from "react-toastify";
+import { object, string } from "yup";
 import "react-toastify/dist/ReactToastify.css";
+import { useFormik } from "formik";
 
 export default function SignUp() {
   const form = useRef();
@@ -12,9 +14,10 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [yearOfStudy, setyearOfStudy] = useState("");
   const [track, setTrack] = useState("");
-
-  const sendEmail = (e) => {
-    e.preventDefault();
+  //
+  const sendEmail = async (e) => {
+ 
+    // console.log(formData);
 
     emailjs
       .sendForm(
@@ -58,6 +61,29 @@ export default function SignUp() {
     }, 3000);
   };
 
+  // Form validation
+
+  const studentSchema = object({
+    name: string().required("*Must provide a name"),
+    email: string().email("Please enter a valid email").required("*Email is required"),
+    yearOfStudy: string().required("*Current year of study is required"),
+    track: string()
+      .required("*Track is required")
+      .min(20, "Track must be a minimum of 20 characters"),
+  });
+
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      yearOfStudy: "",
+      track: "",
+    },
+    validationSchema: studentSchema,
+    onSubmit: sendEmail,
+  });
+
+
   return (
     <>
       <ToastContainer
@@ -79,54 +105,83 @@ export default function SignUp() {
 
         <div className="container  h-[80%] md:w-[55%] bg-white bg-opacity-10 rounded-2xl shadow-5xl relative z-2 border border-opacity-30 border-r-0 border-b-0 backdrop-filter backdrop-blur-sm">
           <form
+          ref={form}
             className="h-full  flex flex-col justify-evenly items-center"
-            ref={form}
-            onSubmit={sendEmail}
+            onSubmit={formik.handleSubmit}
           >
             <div
               className={`${poppins.className} text-white font-poppins text-3xl tracking-widest antialiased`}
             >
               Sign Up form
             </div>
-            <input
-              type="text"
-              value={name}
-              required
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Full Name"
-              className={`${poppins.className} input-text antialiased `}
-              name="user_name"
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              required
-              onChange={(e) => setEmail(e.target.value)}
-              className={`${poppins.className} input-text antialiased `}
-              name="user_email"
-            />
-            <input
-              type="text"
-              placeholder="Year of Study"
-              value={yearOfStudy}
-              required
-              onChange={(e) => setyearOfStudy(e.target.value)}
-              className={`${poppins.className} input-text antialiased `}
-              name="year_study"
-            />
-            <input
-              type="text"
-              value={track}
-              onChange={(e) => setTrack(e.target.value)}
-              placeholder="Tech Track"
-              className={`${poppins.className} input-text antialiased `}
-              name="techtrack"
-            />
-            {/* <input type="Submit" /> */}
+            <div>
+              <input
+                type="text"
+                onChange={formik.handleChange}
+                placeholder="Full Name"
+                className={`${poppins.className} input-text antialiased ${formik.errors.email?'border-red-500':''}`}
+                value={formik.values.name}
+                name="name"
+                onBlur={formik.handleBlur}
+              />
+              {formik.errors.name && formik.touched.name && (
+                <p className={"text-[10px] mt-[10px] text-[red]"}>
+                  {formik.errors.name}
+                </p>
+              )}
+            </div>
+            <div>
+              <input
+                type="email"
+                placeholder="Email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                className={`${poppins.className} input-text antialiased ${formik.errors.email?'border-red-500':''} `}
+                name="email"
+                onBlur={formik.handleBlur}
+              />
+              {formik.errors.email && formik.touched.email &&(
+                <p className={"text-[10px] mt-[10px] text-[red]"}>
+                  {formik.errors.email}
+                </p>
+              )}
+            </div>
+            <div>
+              <input
+                type="text"
+                placeholder="Year of Study"
+                value={formik.values.yearOfStudy}
+                onChange={formik.handleChange}
+                className={`${poppins.className} input-text antialiased ${formik.errors.email?'border-red-500':""}`}
+                name="yearOfStudy"
+                onBlur={formik.handleBlur}
+              />
+              {formik.errors.yearOfStudy && formik.touched.yearOfStudy && (
+                <p className={"text-[10px] mt-[10px] text-[red]"}>
+                  {formik.errors.yearOfStudy}
+                </p>
+              )}
+            </div>
+            <div>
+              <input
+                type="text"
+                value={formik.values.track}
+                onChange={formik.handleChange}
+                placeholder="Tech Track"
+                className={`${poppins.className} input-text antialiased ${formik.errors.email?'border-red-500':''}`}
+                name="track"
+                onBlur={formik.handleBlur}
+              />
+              {formik.errors.track && formik.touched.track && (
+                <p className={"text-[10px] mt-[10px] text-[red]"}>
+                  {formik.errors.track}
+                </p>
+              )}
+            </div>
+
             <button
               className={`${poppins.className} antialiased cursor-pointer  rounded-full px-5 md:w-[30%] h-[10%] py-1 bg-white bg-opacity-50 hover:bg-white hover:bg-opacity-80`}
-              onClick={sendEmail}
+              type="submit"
             >
               Submit
             </button>
